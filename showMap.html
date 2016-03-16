@@ -13,8 +13,6 @@
         margin-top:3px;
         text-align: center;
         color: #000000;
-        text-decoration: underline;
-
         font-stretch: expanded;
 
         font-size: 20px;
@@ -45,6 +43,8 @@
               document.querySelector('article').appendChild(mapcanvas);
             });
             // creates a new variable 'latlng' off of the google maps object
+            var user_lat = position.coords.latitude;
+            var user_long = position.coords.longitude;
             console.log(user_lat);
             console.log(user_long);
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -66,7 +66,7 @@
             var person = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                title:"You are here! (at least within a "+position.coords.accuracy+" meter radius.)",
+                title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)",
                 icon: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
             });
 
