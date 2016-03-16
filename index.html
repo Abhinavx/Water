@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+      <script>
+        $(document).ready(function(){
+          typeInsiration();
+        })
+        function typeInsiration()
+        {
+         var times = 0;
+         var id = setInterval(frame, 2500);
+         function frame()
+         {
+           var dio="Water, our utter most necessary thing in order to survive...";
+           var dio2="...is being dissipated and we need to change that.";
+           var dio3="The most precious thing to life WILL not go to waste.";
+           if(times===1)
+              $('#selfText').text(dio);
+           else if(times===2)
+            $('#selfText').text(dio2);
+           else
+           {
+             $('#selfText').text("We need change.");
+             times=0;
+           }
+           times++;
+         }
+        }
+
+      </script>
+
+      <style>
+        #container
+        {
+          height: 100%;
+          width: 100%;
+        }
+        .op{opacity: 0.8;}
+        #selfTextC{
+          margin: auto;
+          width: 60%;
+          margin-top:300px;
+          text-align: center;
+          color: #000000;
+          text-decoration: underline;
+          font-style: italic;
+          font-stretch: expanded;
+          font-family: Courier;
+          font-size: 20px;
+          border: 3px solid #001a1a;
+          padding: 5px;
+        }
+        #su
+        {
+          font-size: 40px;
+          text-align: center;
+          color: #000000;
+          text-decoration: underline;
+          font-style: italic;
+          font-family: Georgia;
+          font-stretch: expanded;
+          border: 3px solid #4d79ff;
+        }
+        #si
+        {
+          font-size: 40px;;
+          text-align: center;
+          color: #000000;
+          text-decoration: underline;
+          font-style: italic;
+          font-family: Georgia;
+          font-stretch: expanded;
+          border: 3px solid #4d79ff;
+        }
+        .container-fluid{height: 100%}
+
+      </style>
+    </head>
+
+    <body background="https://www.corning.com/media/worldwide/global/images/2B_Sustainability_01_Banner.jpg/jcr:content/renditions/retina_2048.jpg">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <div class="container-fluid">
+        <div class="op">
+          <a href="Signin.html"><div id="su"class="col-sm-6" style="background-color:#e3fdfd;opacity:1.0;">Sign In</div></a>
+          <a href="Signup.html"><div id="si"class="col-sm-6" style="background-color:#512e3c;opacity:1.0;">Sign Up</div></a>
+        </div>
+        <div id="selfTextC"><p><div style="height:100;width:auto;background-color:#66b3ff;"id ="selfText"><u>We need change.</u></div></p></div>
+      </div>
+    </body>
+</html>

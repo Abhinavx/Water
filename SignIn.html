@@ -1,0 +1,63 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+  .input-container{margin-top: 5%; width: 25%;margin-left:40%;margin-right: 50%;}
+  .input{margin-right: 50%;margin-left: 40%;width:20%;}
+  #login{margin-left:50%;margin-right: 50%;width: 10px;}
+  #email{margin-top: 5%;}
+  #signtitle{margin-left: 50%;}
+  #see{background-color: #004d32; color: white;}
+  #signInTitle{color: #8080ff;}
+  </style>
+
+</head>
+<body background="http://www.mrwallpaper.com/wallpapers/forest-trees-waterfall.jpg">
+  <h2 id="signtitle"><div id="signInTitle">Sign In</div></h2>
+  <form id="myForm">
+    <div class="input-container">
+      <input type="text" id="email" required="required"class="form-control"/>
+      <label for="Email"><div id="see">Email</div></label>
+      <div class="bar"></div>
+    </div>
+    <div class="input-container">
+      <input type="password" id="password" required="required"class="form-control" class="span"/>
+      <label for="Password"><div id="see">Password</label>
+      <div class="bar"></div>
+    </div>
+    <br></br>
+    <div id="login" class="button-container">
+      <button href="startbootstrap-stylish-portfolio-1.0.4/index.html#"class="btn btn-default"><span>Sign in</div></span></button>
+    </div>
+  </form>
+
+<script src= 'https://cdn.firebase.com/js/client/2.4.1/firebase.js'> </script>
+  <script>
+  $('#login').click(function(e)
+  {
+    e.preventDefault();
+    var ref = new Firebase("https://watersave.firebaseio.com");
+    ref.authWithPassword({
+      email    : document.getElementById('myForm').email.value,
+      password : document.getElementById('myForm').password.value,
+      }, authHandler);
+  });
+  function authHandler(error, authData) {
+    if (error) {
+      alert("Login Failed!"+ error);
+    } else {
+      console.log("Authenticated successfully with payload:", authData);
+      window.open("startbootstrap-stylish-portfolio-1.0.4/index.html#","_self");
+    }
+  }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <title>Sign Up</title>
+  <style>
+    .input-container{margin-top: 5%; width: 25%;margin-left:40%;margin-right: 50%;}
+    .input{margin-right: 50%;margin-left: 40%;width:20%;}
+    #register{margin-left:50%;margin-right: 50%;width: 10px;}
+    #email{margin-top: 5%;}
+    #signtitle{margin-left: 50%;}
+  </style>
+  </head>
+    <body background=http://xdesktopwallpapers.com/wp-content/uploads/2012/07/Hourglass%20And%20Light%20Blue%20Background.jpg>
+      <h2 id="signtitle"><u>Sign Up</u></h2>
+      <form id="secondForm">
+        <div class="input-container">
+          <input type="text" id="name" required="required"class="form-control"/>
+          <label for="Name">Name</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="text" id="email" required="required"class="form-control"/>
+          <label for="Email">Email</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="password" required="required"class="form-control"/>
+          <label for="Password">Password</label>
+          <div class="bar"></div>
+        </div>
+        <br></br>
+        <div id="register" class="button-container">
+          <button href="more.html"class="btn btn-default"><span>Next</span></button>
+        </div>
+      </form>
+
+      <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+      <script>
+
+      $('#register').click(function(e) {
+        e.preventDefault();
+        var refs = new Firebase("https://watersave.firebaseio.com");
+        refs.createUser({
+          email: ""+document.getElementById('secondForm').email.value,
+          password: ""+document.getElementById('secondForm').password.value
+        }, function(error, userData) {
+          if(document.getElementById('secondForm').email.value.toString()===null||document.getElementById('secondForm').password.value.toString()===null||document.getElementById('secondForm').name.value.toString()===null)
+            alert("Please enter in everything required.");
+          if (error) {
+            switch (error.code) {
+              case "EMAIL_TAKEN":
+              console.log("The new user account cannot be created because the email is already in use.");
+              alert("The new user account cannot be created because the email is already in use.");
+              break;
+              case "INVALID_EMAIL":
+              console.log("The specified email is not a valid email.");
+              break;
+              default:
+              console.log("Error creating user:", error);
+            }
+          } else {
+            console.log("Successfully created user account with uid:", userData.uid);
+            alert("Welcome, "+document.getElementById('secondForm').name.value+"!");
+            var ref = new Firebase("https://watersave.firebaseio.com");
+            var ref2= ref.child("User/"+userData.uid);
+            var x= document.getElementById('secondForm').name.value+"";
+            ref2.set(
+            {
+             name:x
+            })
+            window.open("more.html","_self");
+          }
+        });
+      });
+
+      // Create a callback which logs the current auth state
+
+// Register the callback to be fired every time auth state changes
+
+      </script>
+  </body>
+</html>
