@@ -154,6 +154,7 @@
         var authData = ref.getAuth();
         var x= document.getElementById('numChild').value;
         var y= document.getElementById('numAdults').value;
+        console.log(authData);
         ref.child(authData.uid).set(
         {
          children:x,
