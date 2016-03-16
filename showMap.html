@@ -45,15 +45,6 @@
               document.querySelector('article').appendChild(mapcanvas);
             });
             // creates a new variable 'latlng' off of the google maps object
-            user_lat = position.coords.latitude;
-            user_long = position.coords.longitude;
-            var ref = new Firebase("https://watersave.firebaseio.com");
-            var ref2= ref.child("User/"+userData.uid);
-            var x= document.getElementById('secondForm').name.value+"";
-            ref2.update(
-            {
-             location: user_lat+","user_long
-            })
             console.log(user_lat);
             console.log(user_long);
             var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
