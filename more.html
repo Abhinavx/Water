@@ -115,7 +115,7 @@
   }
   .ipt
   {
-
+    font-size: 15px;
   }
   </style>
 
@@ -124,14 +124,14 @@
     <form class="form-style-7">
     <ul>
     <li>
-      <form class="ipt">
-          Number of children in household:
+      <form>
+        <p class="ipt">  Number of children in household:</p>
         <input type="number" name="quantity" min="0" max="20" id="numChild">
       </form>
     </li>
     <li>
       <form class="ipt">
-        Number of Adults in household:
+        <p class="ipt">Number of Adults in household:</p>
       <input type="number" name="quantity" min="0" max="20" id="numAdults">
       </form>
     </li>
@@ -159,8 +159,8 @@
          children:x,
          adults:y
         })
-          console.log("child:"+x+", adults:"+y);
-          window.open("startbootstrap-stylish-portfolio-1.0.4/index.html#","_self");
+          console.log("child:"+x+", adults:"+y+"For the user: "+authData.uid);
+          window.open("SignIn.html","_self");
       })
     </script>
   </body>
