@@ -1,5 +1,7 @@
 <html>
   <head>
+    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <style type="text/css">
   .form-style-7{
       max-width:250px;
@@ -111,6 +113,10 @@
       background: #6B9FFF;
       color:#fff;
   }
+  .ipt
+  {
+
+  }
   </style>
 
   </head>
@@ -118,17 +124,21 @@
     <form class="form-style-7">
     <ul>
     <li>
-        <label for="name" type="number" id="children">Children in family (Below age 13)</label>
-        <input type="text" name="name" maxlength="10">
+      <form class="ipt">
+          Number of children in household:
+        <input type="number" name="quantity" min="0" max="20" id="numChild">
+      </form>
     </li>
     <li>
-        <label for="email">Adults in family</label>
-        <input type="email" name="email" maxlength="100">
+      <form class="ipt">
+        Number of Adults in household:
+      <input type="number" name="quantity" min="0" max="20" id="numAdults">
+      </form>
     </li>
 
     </li>
     <li>
-        <input type="submit" value="Done" >
+        <input type="submit" value="Done" id="finish" >
     </li>
     </ul>
     </form>
@@ -138,62 +148,20 @@
         h.style.height = "20px";
         h.style.height = (h.scrollHeight)+"px";
     }
-    function saveInfo()
-    {
-      var ref = new Firebase("https://watersave.firebaseio.com");
-      var authData = ref.getAuth();
-      var name=authData.name;
-      var ref2= new Firebase("https://watersave.firebaseio.com/userInfo/"+name);
-      ref2.on("value", function(snapshot) {
-        var val= snapshot.val();
-          var x= document.getElementById('children');
-          if(!(x.equals(null))){
-            ref2.set({ children: x});
-          }
-      })
-
-      }
-      function getUserSettings() {
-        var ref = new Firebase("https://watersave.firebaseio.com");
+    $('#finish').click(function(e) {
+        e.preventDefault();
+        var ref = new Firebase("https://watersave.firebaseio.com/User");
         var authData = ref.getAuth();
-        var email=authData.password.email;
-        var index= email.search("@");
-        var real= email.substring(0,index);
-        var ref2= new Firebase("https://swiftassist.firebaseio.com/userInfo");
-        ref2.on("value", function(snapshot) {
-          var val= snapshot.val();
-          if(val[real]==null){
-            console.log("no data");
-          }else{
-            var x =document.getElementById('cpr');
-            if(val[real].cpr=="true"){
-              x.checked=true;
-            }else{
-              x.checked=false;
-            }
-            var y =document.getElementById('doctor');
-            if(val[real].doctor=="true"){
-              y.checked=true;
-            }else{
-              y.checked=false;
-            }
-            var z =document.getElementById('pen');
-            if(val[real].epipen=="true"){
-              z.checked=true;
-            }else{
-              z.checked=false;
-            }
-            var a =document.getElementById('inhaler');
-            if(val[real].inhaler=="true"){
-              a.checked=true;
-            }else{
-              a.checked=false;
-            }
-          }
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
-    }
+        var x= document.getElementById('numChild').value;
+        var y= document.getElementById('numAdults').value;
+        ref.child(authData.uid).set(
+        {
+         children:x,
+         adults:y
+        })
+          console.log("child:"+x+", adults:"+y);
+          window.open("startbootstrap-stylish-portfolio-1.0.4/index.html#","_self");
+      })
     </script>
   </body>
 </html>
