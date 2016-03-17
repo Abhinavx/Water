@@ -48,11 +48,11 @@
         ref.child(authData.uid).on('value', function(dataSnapshot){
          tt=dataSnapshot.val().total;
          console.log("Amount of gallons: "+tt);
-       });
-        var aa=tt-(1.4);
-        ref.child(authData.uid).set({
+       })
+        var aa=parseInt(tt)-(1.4);
+        ref.child(authData.uid).update({
          total:aa
-       });
+       })
      })
      $('#pint').click(function(e)
      {
@@ -63,11 +63,11 @@
        var gg=0;
        ref.child(authData.uid).on('value', function(dataSnapshot){
         tt=dataSnapshot.val().total;
-      });
+      })
        var aa=tt-(1*0.3);
        ref.child(authData.uid).update({
         total:aa
-      });
+      })
     })
     $('#personal').click(function(e)
     {
@@ -83,11 +83,11 @@
         var gg=0;
         ref.child(authData.uid).on('value', function(dataSnapshot){
          tt=dataSnapshot.val().total;
-       });
+       })
         var aa=tt-(1.6);
         ref.child(authData.uid).update({
          total:aa
-       });
+       })
      })
        $('#fac').click(function(e)
        {
@@ -95,16 +95,17 @@
          var ref = new Firebase("https://watersave.firebaseio.com/User");
          var authData = ref.getAuth();
          var tt=0;
-         var gg=0;
+         var gg=10000;
+         var aa;
          ref.child(authData.uid).on('value', function(dataSnapshot){
-          tt=dataSnapshot.val().total;
-          gg=dataSnapshot.val().GallonsFaucet;
-        });
-        alert(tt+" total and "+gg+"facuet")
-         var aa=tt-(gg);
+           aa=parseInt(dataSnapshot.val().total)-parseInt(dataSnapshot.val().GallonsFaucet);
+           console.log("Inside the data aa is"+aa+"And total is "+dataSnapshot.val().total);
+        })
+        console.log(authData.uid);
+        console.log(aa);
          ref.child(authData.uid).update({
-          total:aa
-        });
+          total:aa,
+        })
       })
     })
     </script>
