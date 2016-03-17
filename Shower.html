@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    #txt{background-color: #e699ff;  ;width: auto;text-align: center;font-size: 100px;}
+    #tmr{margin-left:40%;margin-right: 50%;width: 25%;height:25%;font-size: 50px; color: white;font-family: sans-serif}
+  </style>
+<script>
+  $(document).ready(function(){
+    startTime();
+    setTime();
+  })
+  function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    f=timeZone(h)
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s+f;
+    var t = setTimeout(startTime, 500);
+  }
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+function timeZone(h)
+{
+  if(h<12) return " A.M"
+  return " P.M"
+}
+var times=0;
+var left=Math.floor((Math.random() * 600) + 100);;
+  function setTime()
+  {
+    var t = setTimeout(setTime, 1000);
+    times++;
+    document.getElementById('tmr').innerHTML =
+    "You have "+ (left-times)+" seconds left.";
+    if (times==left) {
+      alert("Time Done!");
+      var ref = new Firebase("https://watersave.firebaseio.com/User");
+      var authData = ref.getAuth();
+      var tt=0;
+      var gg=0;
+      ref.child(authData.uid).on('value', function(dataSnapshot){
+       tt=dataSnapshot.val().total;
+       gg=dataSnapshot.val().GallonsShower;
+     });
+      var aa=tt-(times*gg)
+      ref.child(authData.uid).update({
+       total:aa
+     });
+    }
+  }
+</script>
+</head>
+
+<body background="http://blueblots.com/wp-content/uploads/2010/11/12-Underwater-Wallpaper.jpg">
+
+<div id="txt"></div>
+<div id="tmr"> </div>
+
+</body>
+</html>

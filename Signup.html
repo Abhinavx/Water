@@ -155,9 +155,9 @@
       <form class="form-style-7" style="margin-left:40%;margin-top:1%;">
       <ul>
       <li>
-        <form>
+        <form id="myFormm">
           <p class="ipt">  Number of children in household:</p>
-          <input type="number" name="quantity" min="0" max="20" id="numChild">
+          <input type="number" name="quantity" min="0" max="20" id="numChilds">
         </form>
       </li>
       <li>
@@ -166,10 +166,21 @@
         <input type="number" name="quantity" min="0" max="20" id="numAdults">
         </form>
       </li>
-
+      <li>
+        <form class="ipt">
+          <p class="ipt">Gallons used per minute for shower head(If you don't know enter 0):</p>
+        <input type="number" name="quantity" min="0" max="20" id="showerGallons">
+        </form>
       </li>
       <li>
-          <a href=SignIn.html><input type="submit" value="Done" id="finish" ></a>
+        <form class="ipt">
+          <p class="ipt">Gallons of water used in faucet for dishes per minute(enter 0 if you do not know)</p>
+        <input type="number" name="quantity" min="0" max="20" id="faucetGallons">
+        </form>
+      </li>
+      </li>
+      <li>
+          <a><input type="submit" value="Done" id="finish" ></a>
       </li>
       </ul>
       </form>
@@ -203,13 +214,38 @@
             var ref = new Firebase("https://watersave.firebaseio.com");
             var ref2= ref.child("User/"+userData.uid);
             var x= document.getElementById('secondForm').name.value+"";
-            var y= document.getElementById('numChild').value;
+            var y= document.getElementById('numChilds').value;
             var z= document.getElementById('numAdults').value;
+            var a= document.getElementById('showerGallons').value;
+            var b=document.getElementById('faucetGallons').value;
+            if(a===0)
+            {
+              a=2;
+            }
+            if(b===0)
+            {
+              b=2;
+            }
+            a=parseInt(a);
+            b=parseInt(b);
+            y=parseInt(y);
+            z=parseInt(z);
+            var t=(y*1.5*5)+(y*1.3*5.5)+(z*1.5*6)+(z*1.3*6.5)+3;
+            t=parseInt(t);
+            console.log("Number of children plus number of adults = "+(z+y));
             ref2.set(
             {
              name:x,
              children:y,
-             adults:z
+             adults:z,
+             GallonsShower:2,
+             GallonsFaucet:2,
+             shower:0,
+             dishes:0,
+             flushing:0,
+             washing:0,
+             own:0,
+             total:t
             })
             window.open("SignIn.html","_self");
           }

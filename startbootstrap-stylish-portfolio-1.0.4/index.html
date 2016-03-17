@@ -50,6 +50,13 @@
     var authData = ref.getAuth();
      ref.child(authData.uid).on('value', function(dataSnapshot){
        $('#greetingName').text("Welcome, "+dataSnapshot.val().name+".");
+       if ((dataSnapshot.val().total)>0) {
+         $('#waterused').text("You have a remaining "+dataSnapshot.val().total+" gallons of water left.");
+       }
+       else {
+         $('#waterused').text("You have used "+((dataSnapshot.val().total)*-1)+" more gallons than is needed for today. You must stop utilizing water unless it is a necissity..");
+         alert(dataSnapshot.val().name+" please reduce the amount of water you are using.");
+       }
     });
   }
 
@@ -63,14 +70,14 @@
             <li class="sidebar-brand">
                 <p id="tits" >Water journey!</p>
             </li>
-            <li>
-                <a href="Water/more.html" onclick = $("#menu-close").click(); >Services</a>
-            </li>
-            <li>
-                <a href="#portfolio" onclick = $("#menu-close").click(); >Usage</a>
+            <li id="usage">
+                <a href="#portfolio" onclick = $("#menu-close").click();>Usage</a>
             </li>
             <li>
                 <a href="/Water/showMap.html" onclick = $("#menu-close").click(); >Map View</a>
+            </li>
+            <li>
+                <a href="Water/more.html" onclick = $("#menu-close").click(); >Recommendations</a>
             </li>
         </ul>
     </nav>
@@ -80,7 +87,7 @@
         <div class="text-vertical-center">
             <h1 id="greetingName"></h1>
             <br>
-            <a href="Water\main.html" class="btn btn-dark btn-lg">Start your day!</a>
+            <a href="file:///C:/Users/Abhinav%20Nimbalkar/Documents/Water/main.html" class="btn btn-dark btn-lg">Start your day!</a>
         </div>
     </header>
 
@@ -95,12 +102,6 @@
         </div>
         <!-- /.container -->
     </section>
-
-    <script>
-      $(document).ready(function(){
-        $( "#waterused" ).append( "<p>Test</p>" );
-      })
-    </script>
     <!-- Call to Action -->
 
     <!-- Map -->
@@ -125,6 +126,10 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
+    });
+    $("#usage").click(function(e) {
+        e.preventDefault();
+        window.open("file:///C:/Users/Abhinav%20Nimbalkar/Documents/Water/main.html","_self");
     });
 
     // Scrolls to the selected menu item on the page
